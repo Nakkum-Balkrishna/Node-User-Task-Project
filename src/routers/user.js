@@ -94,12 +94,12 @@ router.patch("/users/me", auth, async (req, res) => {
   }
 });
 
-router.delete("/users/:id", auth, async (req, res) => {
-  try {
-    const user = await User.findByIdAndRemove(req.user._id);
-    res.send(user);
+router.delete("/users/me", auth, async (req, res) => {
+  try {    
+    await req.user.deleteOne()
+    res.send(req.user);
   } catch (error) {
-    res.status(400).send(error);
+    res.status(500).send(error);
   }
 });
 
