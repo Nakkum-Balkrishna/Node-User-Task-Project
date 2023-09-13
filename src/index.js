@@ -7,6 +7,15 @@ const app = express();
 
 port = process.env.PORT || 3000;
 
+app.use(express.json());
+app.use(userRouter);
+app.use(taskRouter);
+
+app.listen(port, () => {
+  console.log("App is listening of port " + port);
+});
+
+
 // app.use((req,res,next)=>{
 //   res.status(503).send("Under maintainance please try back later.")
 // })
@@ -18,17 +27,9 @@ port = process.env.PORT || 3000;
 //     next()
 //   }
 // })
-app.use(express.json());
-app.use(userRouter);
-app.use(taskRouter);
 
-app.listen(port, () => {
-  console.log("App is listening of port " + port);
-});
-
-
-const Task = require('./models/task')
-const User = require('./models/user')
+// const Task = require('./models/task')
+// const User = require('./models/user')
 
 // const main = async () =>{
 //     const task = await Task.findById('64faf6e99f724bee61a6475f')
@@ -42,3 +43,29 @@ const User = require('./models/user')
 
 // main()
 
+// const multer = require('multer')
+
+// const upload = multer({
+//   dest: 'images',
+//   limits: {
+//     fileSize: 1000000
+//   },
+//   fileFilter(req,file,cb){
+//     // if(!file.originalname.endsWith('.jpg')){
+//     //   return cb(new Error('Please uplaod a PDF'))
+//     // }
+  
+//     if(!file.originalname.match(/\.(doc|docx)$/)){
+//       return cb(new Error('Not supported'))
+//     }
+
+//     cb(undefined,true)
+
+//   }
+// })
+
+// app.post('/upload', upload.single('upload'), (req,res)=>{
+//   res.sendStatus(200)
+// },(error,req,res,next)=>{
+//   res.status(400).send({error: error.message})
+// })
